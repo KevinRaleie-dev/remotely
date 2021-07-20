@@ -27,6 +27,13 @@ export class ListingsComponent implements OnInit {
     console.log(d);
     const days = d - t;
 
+    if (days === 0) {
+      return `Today`     
+    }
+    else if (days === 1) {
+      return `${days} day ago`;
+    }
+
     return `${days} days ago`;
   }
 
