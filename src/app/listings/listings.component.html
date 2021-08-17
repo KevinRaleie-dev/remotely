@@ -1,26 +1,30 @@
 <div class="container mx-auto px-6 mt-32 ">
-    <h2 class="text-3xl font-semibold">Remote jobs available</h2>
+    <h2 class="text-3xl font-semibold">Showing {{ total_jobs }} Jobs</h2>
     <div class="space-y-3 my-5">
-        <div *ngFor="let job of jobs">
-            <a href="{{ job.url }}">
-                <div class="w-3/4 h-32 bg-white rounded-md p-3 hover:shadow-md cursor-pointer">
-                    <div class="flex flex-row justify-between items-center">
-                        <div class="flex flex-col justify-between">
-                            <p class="text-lg">{{ job.company_name }}</p>
-                            <p class="font-semibold text-xl ">{{ job.title }}</p>
-                            <p>Full time</p>
-                            <p class="text-xs text-gray-500">{{ job.salary }}</p>
-                        </div>
-                        <div class="h-auto w-auto bg-yellow-300 p-2 rounded-md">
-                            <p class="text-sm font-medium">{{ job.category }}</p>
-                        </div>
-                        <div class="flex flex-row justify-between items-center space-x-2">
-                            <p class="text-xs">{{ parseDate(job.publication_date) }}</p>
-                            <div class="h-20 w-1 bg-blue-300 rounded-md"></div>
+        <div *ngIf="loading; else elseBlock">Loading jobs...</div>
+        <ng-template #elseBlock>
+            <div class="grid grid-flow-row grid-cols-4 gap-4">
+                <div *ngFor="let job of jobs">
+                    <div class="w-auto h-auto bg-white rounded-lg p-3 hover:shadow-md">
+                        <div class="space-y-5">
+                            <img class="w-12 h-12 rounded-md" src="{{ job.company_logo_url }}" alt="company logo">
+                            <p class="font-semibold text-lg ">{{ job.title }}</p>
+                            <p class="overflow-ellipsis overflow-hidden text-sm text-gray-500">{{ this.parseJobDescription(job.description)}}</p>
+                            <div class="flex flex-row justify-start space-x-2">
+                                <div class="bg-blue-100 p-2 rounded-md">
+                                    <p class="text-sm font-normal text-blue-500">{{ this.parseJobType(job.job_type) }}</p>
+                                </div>
+                                <div class="bg-blue-100 p-2 rounded-md">
+                                    <p class="text-sm font-normal text-blue-500">{{ job.category }}</p>
+                                </div>
+                            </div>
+                            <div class="my-4">
+                                <a class="py-2 px-8 bg-blue-600 text-gray-50 rounded-md" href="{{ job.url }}"><span>Apply now</span></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </a>
-        </div>
+            </div>
+        </ng-template>
     </div>
 </div>

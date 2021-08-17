@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Job } from 'src/utils/job';
+import { Subscription } from 'rxjs';
+import { Job, Data } from 'src/utils/job';
 import { JobService } from '../services/job.service';
 
 @Component({
@@ -9,32 +10,43 @@ import { JobService } from '../services/job.service';
 })
 export class ListingsComponent implements OnInit {
 
-  jobs: any = [];
+  jobs: Job[] = [];
+  loading: boolean = true;
+  total_jobs: number = 0;
 
   constructor(private jobService: JobService) { }
 
   ngOnInit(): void {
-    this.jobService.getJobListings().subscribe((data: any) => {
-      const {jobs} = data;
-      this.jobs = jobs;
-      console.log(this.jobs);
+    this.getJobs();
+  }
+
+  getJobs(): Subscription {
+    return this.jobService.getJobListings().subscribe((data: Data) => {
+      console.log(data);
+      this.jobs = data.jobs
+      this.total_jobs = this.jobs.length;
+      this.loading = false;
     });
   }
 
   parseDate(date: string): string {
-    const t = new Date(date).getDate();
-    const d = new Date().getDate();
-    console.log(d);
-    const days = d - t;
+    const time = new Date(date).getDate();
+    const date2 = new Date().getDate();
+    const days = date2 - time;
 
     if (days === 0) {
       return `Today`     
     }
-    else if (days === 1) {
-      return `${days} day ago`;
-    }
+    return `${days}d`;
+  }
 
-    return `${days} days ago`;
+  parseJobType(type: string): string {
+    const t = type.split('_').join(' ');
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  }
+
+  parseJobDescription(desc: string): string {
+    return desc.replace(/<[^>]*(>|$)|&nbsp;|&#34;|&#39;|&zwnj;|&raquo;|&laquo;|&gt;/g, '').slice(0, 100);
   }
 
 }
