@@ -1,11 +1,13 @@
 <div class="sticky top-0">
     <div class="flex flex-row justify-between items-center h-10 p-8 z-10 bg-yellow-50">
         <div class="flex justify-start">
-            <h1 class="text-2xl font-semibold">📌 remotely.</h1>
+            <a [routerLink]="['/']">
+                <h1 class="text-2xl font-semibold">📌 Remotely</h1>
+            </a>
         </div>
         <div class="flex justify-end ">
-            <a href="" class="bg-white py-2 px-8 rounded-lg font-bold shadow-sm border-2 border-black">Sign up</a>
-            <a href="" class="bg-black py-2 px-8 rounded-lg font-bold text-white mx-2 shadow-sm">Sign in</a>
+            <a [routerLink]="['/register']" class="bg-white py-2 px-8 rounded-lg font-bold shadow-sm border-2 border-black">Sign up</a>
+            <a class="bg-black py-2 px-8 rounded-lg font-bold text-white mx-2 shadow-sm">Sign in</a>
         </div>
     </div>
 </div>

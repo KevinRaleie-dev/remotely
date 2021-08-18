@@ -22,7 +22,6 @@ export class ListingsComponent implements OnInit {
 
   getJobs(): Subscription {
     return this.jobService.getJobListings().subscribe((data: Data) => {
-      console.log(data);
       this.jobs = data.jobs
       this.total_jobs = this.jobs.length;
       this.loading = false;

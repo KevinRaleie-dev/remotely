@@ -9,6 +9,8 @@ import { TodoComponentComponent } from './todo-component/todo-component.componen
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListingsComponent } from './listings/listings.component';
+import { RegisterComponent } from './register/register.component';
+
 
 @NgModule({
   declarations: [
@@ -16,15 +18,17 @@ import { ListingsComponent } from './listings/listings.component';
     TodoComponentComponent,
     NotFoundComponent,
     NavbarComponent,
-    ListingsComponent
+    ListingsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+}
